@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lumara — Coastal Luxury Retreat · Côte d'Azur</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Tenor+Sans&family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sand:    #e6d9c7;
+  --cream:   #f4ede3;
+  --ivory:   #faf7f2;
+  --dusk:    #c9a97a;
+  --gold:    #b8864e;
+  --ocean:   #243b4a;
+  --deep:    #161310;
+  --mist:    #8da3af;
+  --white:   #fdfaf6;
+  --smoke:   #7a7068;
+  --ease:    cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; font-size: 16px; }
+
+body {
+  font-family: 'Jost', sans-serif;
+  background: var(--deep);
+  color: var(--deep);
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* ── CURSOR ── */
+#cur, #cur-ring {
+  position: fixed; top:0; left:0;
+  pointer-events: none; z-index: 10000;
+  border-radius: 50%;
+  will-change: transform;
+}
+#cur { width:8px; height:8px; background:var(--gold); margin:-4px 0 0 -4px; transition: transform .1s; }
+#cur-ring { width:44px; height:44px; border:1px solid var(--gold);
+  margin:-22px 0 0 -22px; opacity:.5; transition: opacity .3s, width .3s, height .3s, margin .3s; }
+body:has(a:hover) #cur-ring, body:has(button:hover) #cur-ring { width:64px; height:64px; margin:-32px 0 0 -32px; opacity:.2; }
+
+/* ── GRAIN OVERLAY ── */
+body::before {
+  content:'';
+  position:fixed; inset:0; z-index:9997; pointer-events:none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  opacity:.025;
+}
+
+/* ── NAV ── */
+nav {
+  position:fixed; top:0; left:0; right:0; z-index:1000;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:36px 64px;
+  transition: padding .6s var(--ease), background .6s;
+}
+nav.s {
+  padding:20px 64px;
+  background:rgba(22,19,16,.88);
+  backdrop-filter:blur(20px) saturate(1.5);
+  border-bottom:1px solid rgba(255,255,255,.05);
+}
+.n-logo {
+  font-family:'Cormorant Garamond', serif;
+  font-size:22px; font-weight:300; letter-spacing:.4em;
+  color:var(--white); text-decoration:none;
+  display:flex; align-items:center; gap:14px;
+}
+.n-logo-mark {
+  width:28px; height:28px;
+  border:1px solid var(--gold);
+  display:flex; align-items:center; justify-content:center;
+  font-size:11px; color:var(--gold); letter-spacing:0;
+  flex-shrink:0;
+}
+.n-links { display:flex; gap:36px; align-items:center; }
+.n-links a {
+  font-size:10px; letter-spacing:.2em; text-transform:uppercase;
+  color:rgba(253,250,246,.55); text-decoration:none;
+  transition:color .3s; font-weight:300;
+}
+.n-links a:hover { color:var(--white); }
+.n-btn {
+  font-size:9px; letter-spacing:.25em; text-transform:uppercase;
+  padding:12px 28px; border:1px solid var(--gold);
+  color:var(--gold); text-decoration:none;
+  transition:all .35s; white-space:nowrap;
+}
+.n-btn:hover { background:var(--gold); color:var(--deep); }
+
+/* ── HERO ── */
+.hero {
+  height:100svh; min-height:700px;
+  position:relative; overflow:hidden;
+  display:flex; flex-direction:column;
+  justify-content:flex-end;
+  background:var(--deep);
+}
+.hero-video-wrap {
+  position:absolute; inset:0; overflow:hidden;
+}
+.hero-video-wrap video {
+  width:100%; height:100%;
+  object-fit:cover; object-position:center;
+  opacity:.65;
+  transform:scale(1.05);
+  animation:vZoom 20s ease-in-out infinite alternate;
+}
+@keyframes vZoom { 0%{transform:scale(1.05);} 100%{transform:scale(1.12);} }
+.hero-video-wrap::after {
+  content:''; position:absolute; inset:0;
+  background: linear-gradient(
+    180deg,
+    rgba(22,19,16,.15) 0%,
+    rgba(22,19,16,.0) 40%,
+    rgba(22,19,16,.6) 80%,
+    rgba(22,19,16,.95) 100%
+  );
+}
+
+.hero-ticker {
+  position:absolute; top:50%; left:0; right:0;
+  transform:translateY(-50%);
+  overflow:hidden; pointer-events:none; opacity:.07;
+}
+.hero-ticker-inner {
+  display:flex; gap:80px; white-space:nowrap;
+  animation:tick 25s linear infinite;
+}
+@keyframes tick { to{transform:translateX(-50%);} }
+.hero-ticker span {
+  font-family:'Cormorant Garamond', serif;
+  font-size:140px; font-weight:300;
+  color:var(--white); letter-spacing:.04em;
+  flex-shrink:0;
+}
+
+.hero-body {
+  position:relative; z-index:2;
+  padding:0 64px 80px;
+  display:grid; grid-template-columns:1fr auto;
+  align-items:flex-end; gap:40px;
+}
+.hero-eyebrow {
+  font-size:9px; letter-spacing:.35em; text-transform:uppercase;
+  color:var(--dusk); margin-bottom:28px;
+  display:flex; align-items:center; gap:18px;
+}
+.hero-eyebrow::before { content:''; width:48px; height:1px; background:var(--dusk); }
+.hero-h1 {
+  font-family:'Cormorant Garamond', serif;
+  font-size:clamp(68px, 9vw, 130px);
+  font-weight:300; line-height:.88;
+  color:var(--white); letter-spacing:-.02em;
+  margin-bottom:36px;
+}
+.hero-h1 em { font-style:italic; color:var(--dusk); display:block; }
+.hero-sub {
+  font-size:13px; font-weight:300;
+  color:rgba(253,250,246,.5);
+  max-width:340px; line-height:2;
+  margin-bottom:48px; letter-spacing:.04em;
+}
+.hero-actions { display:flex; align-items:center; gap:36px; }
+.btn-fill {
+  display:inline-flex; align-items:center; gap:16px;
+  padding:16px 36px;
+  background:var(--gold); color:var(--deep);
+  font-size:9px; letter-spacing:.25em; text-transform:uppercase;
+  text-decoration:none; font-weight:400;
+  transition:all .4s var(--ease);
+}
+.btn-fill::after { content:'→'; font-size:13px; }
+.btn-fill:hover { background:var(--dusk); gap-after:24px; }
+.btn-ghost {
+  display:inline-flex; align-items:center; gap:10px;
+  font-size:10px; letter-spacing:.2em; text-transform:uppercase;
+  color:rgba(253,250,246,.5); text-decoration:none;
+  border-bottom:1px solid rgba(253,250,246,.15);
+  padding-bottom:4px; transition:all .3s;
+}
+.btn-ghost:hover { color:var(--white); border-color:var(--white); gap:16px; }
+.btn-ghost::after { content:'↓'; }
+
+.hero-right-meta {
+  display:flex; flex-direction:column; align-items:flex-end; gap:32px;
+  padding-bottom:8px;
+}
+.hero-coords {
+  font-size:9px; letter-spacing:.2em;
+  color:rgba(253,250,246,.3); text-align:right;
+  line-height:1.8; writing-mode:vertical-rl;
+  transform:rotate(180deg);
+}
+.hero-scroll-line { width:1px; height:100px; background:linear-gradient(var(--dusk),transparent); animation:sp 2s ease-in-out infinite; }
+@keyframes sp { 0%,100%{opacity:.3;transform:scaleY(1);} 50%{opacity:1;transform:scaleY(.5) translateY(25%);} }
+.hero-rating {
+  display:flex; flex-direction:column; align-items:flex-end;
+  gap:6px; text-align:right;
+}
+.hero-rating-num {
+  font-family:'Cormorant Garamond', serif;
+  font-size:38px; font-weight:300; color:var(--white); line-height:1;
+}
+.hero-rating-label { font-size:8px; letter-spacing:.25em; color:rgba(253,250,246,.3); text-transform:uppercase; }
+
+/* ── MARQUEE ── */
+.marquee { overflow:hidden; background:var(--deep); padding:32px 0; border-top:1px solid rgba(255,255,255,.05); }
+.m-track {
+  display:flex; gap:16px; animation:mScroll 40s linear infinite;
+  width:max-content;
+}
+.marquee.rev .m-track { animation-direction:reverse; }
+@keyframes mScroll { to{transform:translateX(-50%);} }
+.m-img {
+  width:320px; height:210px; flex-shrink:0;
+  object-fit:cover; filter:saturate(.75) brightness(.9);
+  transition:filter .5s; cursor:none;
+  background-size:cover; background-position:center;
+}
+.m-img:hover { filter:saturate(1.1) brightness(1.05); }
+
+/* ── ABOUT ── */
+.about { background:var(--ivory); display:grid; grid-template-columns:1fr 1fr; min-height:90vh; }
+.about-vis {
+  position:relative; overflow:hidden;
+}
+.about-vis-img {
+  position:absolute; inset:0;
+  background:url('https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?w=1200&q=85') center/cover;
+  transform:scale(1.1);
+  transition:transform 1.2s var(--ease);
+}
+.about:hover .about-vis-img { transform:scale(1.04); }
+.about-vis::after {
+  content:''; position:absolute; inset:0;
+  background:linear-gradient(to right, transparent 75%, var(--ivory) 100%);
+}
+.about-floater {
+  position:absolute; bottom:48px; left:48px; z-index:2;
+  background:rgba(22,19,16,.7);
+  backdrop-filter:blur(12px);
+  padding:24px 28px; border:1px solid rgba(255,255,255,.08);
+}
+.about-floater-num {
+  font-family:'Cormorant Garamond', serif;
+  font-size:52px; font-weight:300; color:var(--white); line-height:1;
+}
+.about-floater-text { font-size:9px; letter-spacing:.25em; color:rgba(253,250,246,.4); text-transform:uppercase; margin-top:4px; }
+
+.about-body {
+  padding:110px 88px;
+  display:flex; flex-direction:column; justify-content:center;
+}
+.label {
+  font-size:9px; letter-spacing:.35em; text-transform:uppercase;
+  color:var(--gold); margin-bottom:28px;
+  display:flex; align-items:center; gap:16px;
+}
+.label::before { content:''; width:28px; height:1px; background:var(--gold); }
+.about-h2 {
+  font-family:'Cormorant Garamond', serif;
+  font-size:clamp(44px, 4vw, 62px); font-weight:300;
+  line-height:1.08; color:var(--deep); margin-bottom:32px;
+}
+.about-h2 em { font-style:italic; color:var(--gold); }
+.about-p {
+  font-size:14px; font-weight:300; line-height:2; color:var(--smoke);
+  max-width:440px; margin-bottom:52px; letter-spacing:.03em;
+}
+.stats {
+  display:flex; gap:52px; padding-top:44px;
+  border-top:1px solid var(--sand);
+}
+.stat-n {
+  font-family:'Cormorant Garamond', serif;
+  font-size:56px; font-weight:300; color:var(--deep); line-height:1;
+}
+.stat-l { font-size:9px; letter-spacing:.2em; text-transform:uppercase; color:var(--mist); margin-top:8px; }
+
+/* ── SUITES ── */
+.suites { background:var(--cream); padding:130px 64px; }
+.sh { display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:80px; }
+.h2 {
+  font-family:'Cormorant Garamond', serif;
+  font-size:clamp(48px, 5vw, 68px); font-weight:300;
+  line-height:1.05; color:var(--deep);
+}
+.h2 em { font-style:italic; color:var(--gold); }
+.sh-sub { font-size:13px; font-weight:300; line-height:1.9; color:var(--smoke); max-width:260px; text-align:right; }
+
+.suites-grid {
+  display:grid;
+  grid-template-columns:1.5fr 1fr 1fr;
+  grid-template-rows:520px 360px;
+  gap:12px;
+}
+.sc { position:relative; overflow:hidden; }
+.sc:first-child { grid-row:1/3; }
+.sc-img {
+  position:absolute; inset:0;
+  background-size:cover; background-position:center;
+  transform:scale(1.08);
+  transition:transform .9s var(--ease), filter .5s;
+  filter:saturate(.8) brightness(.92);
+}
+.sc:hover .sc-img { transform:scale(1); filter:saturate(1) brightness(1); }
+.sc-overlay { position:absolute; inset:0; background:linear-gradient(to top, rgba(22,19,16,.85) 0%, transparent 55%); }
+.sc-info {
+  position:absolute; bottom:0; left:0; right:0; padding:40px;
+  transform:translateY(50px); transition:transform .55s var(--ease);
+}
+.sc:hover .sc-info { transform:translateY(0); }
+.sc-n { font-size:9px; letter-spacing:.25em; color:var(--dusk); margin-bottom:10px; }
+.sc-name {
+  font-family:'Cormorant Garamond', serif;
+  font-size:30px; font-weight:300; color:var(--white); margin-bottom:12px;
+}
+.sc-desc {
+  font-size:12px; font-weight:300; color:rgba(253,250,246,.55);
+  line-height:1.7; margin-bottom:20px;
+  opacity:0; transform:translateY(10px);
+  transition:opacity .4s .1s, transform .4s .1s;
+}
+.sc:hover .sc-desc { opacity:1; transform:translateY(0); }
+.sc-link {
+  font-size:9px; letter-spacing:.2em; text-transform:uppercase;
+  color:var(--dusk); text-decoration:none;
+  display:inline-flex; align-items:center; gap:10px;
+  border-bottom:1px solid rgba(201,169,122,.3); padding-bottom:4px;
+}
+
+/* ── VIDEO BREAK ── */
+.video-break {
+  position:relative; height:80vh; overflow:hidden;
+  display:flex; align-items:center; justify-content:center;
+}
+.video-break video {
+  position:absolute; inset:0; width:100%; height:100%;
+  object-fit:cover; filter:brightness(.55) saturate(.8);
+}
+.video-break::after {
+  content:''; position:absolute; inset:0;
+  background:radial-gradient(ellipse at center, transparent 20%, rgba(22,19,16,.7) 100%);
+}
+.vb-content {
+  position:relative; z-index:2; text-align:center; padding:0 40px;
+}
+.vb-content blockquote {
+  font-family:'Cormorant Garamond', serif;
+  font-size:clamp(32px, 4.5vw, 64px); font-weight:300; font-style:italic;
+  color:var(--white); line-height:1.25; max-width:900px; margin:0 auto 28px;
+}
+.vb-attr { font-size:9px; letter-spacing:.35em; text-transform:uppercase; color:var(--dusk); }
+.vb-line { width:1px; height:60px; background:linear-gradient(var(--dusk),transparent); margin:28px auto 0; }
+
+/* ── EXPERIENCES ── */
+.exp { padding:130px 64px; background:var(--deep); }
+.exp .h2 { color:var(--white); }
+.exp .label { color:var(--dusk); }
+.exp .label::before { background:var(--dusk); }
+.exp-grid {
+  display:grid; grid-template-columns:repeat(4,1fr);
+  margin-top:80px; border-top:1px solid rgba(255,255,255,.07);
+  border-left:1px solid rgba(255,255,255,.07);
+}
+.ei {
+  padding:52px 44px; border-right:1px solid rgba(255,255,255,.07);
+  border-bottom:1px solid rgba(255,255,255,.07);
+  position:relative; overflow:hidden; cursor:none;
+  transition:background .4s;
+}
+.ei::before {
+  content:''; position:absolute; inset:0; background:var(--ocean);
+  transform:translateY(100%); transition:transform .5s var(--ease); z-index:0;
+}
+.ei:hover::before { transform:translateY(0); }
+.ei-num { font-size:9px; letter-spacing:.3em; color:rgba(253,250,246,.2); position:relative; z-index:1; margin-bottom:28px; }
+.ei-ico { font-size:26px; position:relative; z-index:1; margin-bottom:20px; }
+.ei-name {
+  font-family:'Cormorant Garamond', serif;
+  font-size:24px; font-weight:400; color:var(--white);
+  position:relative; z-index:1; margin-bottom:14px;
+  transition:color .3s;
+}
+.ei-text {
+  font-size:12px; font-weight:300; color:rgba(253,250,246,.4);
+  line-height:1.85; position:relative; z-index:1;
+  transition:color .3s;
+}
+.ei:hover .ei-text { color:rgba(253,250,246,.7); }
+
+/* ── SERVICES ── */
+.services { background:var(--ivory); padding:130px 64px; }
+.svc-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:2px; margin-top:80px; }
+.svc-c {
+  position:relative; overflow:hidden; aspect-ratio:3/4; cursor:none;
+}
+.svc-img {
+  position:absolute; inset:0;
+  background-size:cover; background-position:center;
+  transition:transform .8s var(--ease), filter .5s;
+  filter:saturate(.7) brightness(.85);
+}
+.svc-c:hover .svc-img { transform:scale(1.08); filter:saturate(1) brightness(.95); }
+.svc-overlay {
+  position:absolute; inset:0;
+  background:linear-gradient(to top, rgba(22,19,16,.9) 0%, rgba(22,19,16,.1) 60%, transparent);
+}
+.svc-body {
+  position:absolute; bottom:0; left:0; right:0; padding:44px;
+  transform:translateY(44px); transition:transform .5s var(--ease);
+}
+.svc-c:hover .svc-body { transform:translateY(0); }
+.svc-ico { font-size:24px; color:var(--dusk); margin-bottom:16px; }
+.svc-name {
+  font-family:'Cormorant Garamond', serif;
+  font-size:28px; font-weight:300; color:var(--white); margin-bottom:12px;
+}
+.svc-text {
+  font-size:12px; font-weight:300; color:rgba(253,250,246,.55); line-height:1.8;
+  opacity:0; transform:translateY(8px); transition:opacity .4s .1s, transform .4s .1s;
+}
+.svc-c:hover .svc-text { opacity:1; transform:translateY(0); }
+
+/* ── GALLERY GRID ── */
+.gal { padding:12px; background:var(--deep); }
+.gal-grid {
+  display:grid;
+  grid-template-columns: repeat(12,1fr);
+  grid-template-rows: 320px 400px 280px;
+  gap:6px;
+}
+.gi { overflow:hidden; position:relative; }
+.gi:nth-child(1) { grid-column:1/5; grid-row:1; }
+.gi:nth-child(2) { grid-column:5/9; grid-row:1; }
+.gi:nth-child(3) { grid-column:9/13; grid-row:1/3; }
+.gi:nth-child(4) { grid-column:1/3; grid-row:2; }
+.gi:nth-child(5) { grid-column:3/6; grid-row:2; }
+.gi:nth-child(6) { grid-column:6/9; grid-row:2; }
+.gi:nth-child(7) { grid-column:1/5; grid-row:3; }
+.gi:nth-child(8) { grid-column:5/9; grid-row:3; }
+.gi:nth-child(9) { grid-column:9/13; grid-row:3; }
+.gi-img {
+  width:100%; height:100%;
+  background-size:cover; background-position:center;
+  transition:transform .8s var(--ease), filter .5s;
+  filter:saturate(.75) brightness(.9);
+}
+.gi:hover .gi-img { transform:scale(1.07); filter:saturate(1.05) brightness(1); }
+.gi-label {
+  position:absolute; bottom:20px; left:20px;
+  font-size:9px; letter-spacing:.2em; text-transform:uppercase;
+  color:rgba(253,250,246,.5); opacity:0; transition:opacity .3s;
+}
+.gi:hover .gi-label { opacity:1; }
+
+/* ── TESTIMONIAL ── */
+.testi { background:var(--cream); padding:130px 64px; }
+.testi-inner { display:grid; grid-template-columns:1fr 1fr; gap:100px; align-items:center; }
+.testi-vis { position:relative; }
+.tiv-main {
+  width:100%; aspect-ratio:2/3;
+  background:url('https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=900&q=85') center/cover;
+  display:block;
+}
+.tiv-float {
+  position:absolute; bottom:-44px; right:-44px;
+  width:190px; height:260px;
+  background:url('https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&q=80') center/cover;
+  border:5px solid var(--cream);
+}
+.tiv-badge {
+  position:absolute; top:44px; left:-36px;
+  background:var(--deep); padding:22px 28px;
+  border:1px solid rgba(201,169,122,.25);
+}
+.tiv-badge-n { font-family:'Cormorant Garamond', serif; font-size:44px; font-weight:300; color:var(--white); line-height:1; }
+.tiv-badge-t { font-size:8px; letter-spacing:.25em; color:rgba(253,250,246,.3); text-transform:uppercase; margin-top:4px; }
+
+.testi-body { padding-right:10px; }
+.testi-stars { color:var(--gold); letter-spacing:4px; font-size:15px; margin-bottom:32px; }
+.testi-q {
+  font-family:'Cormorant Garamond', serif;
+  font-size:36px; font-weight:300; font-style:italic;
+  color:var(--deep); line-height:1.3; margin-bottom:36px;
+}
+.testi-who { font-size:12px; letter-spacing:.1em; font-weight:400; color:var(--deep); margin-bottom:4px; }
+.testi-where { font-size:11px; letter-spacing:.15em; color:var(--mist); text-transform:uppercase; }
+.testi-dots { display:flex; gap:8px; margin-top:48px; }
+.td { width:32px; height:2px; background:var(--sand); cursor:pointer; transition:all .3s; }
+.td.on { width:52px; background:var(--gold); }
+
+/* ── CTA SECTION ── */
+.cta {
+  position:relative; overflow:hidden;
+  padding:160px 64px;
+  display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center;
+}
+.cta-video {
+  position:absolute; inset:0; z-index:0;
+}
+.cta-video video {
+  width:100%; height:100%; object-fit:cover; filter:brightness(.25) saturate(.5);
+}
+.cta-overlay {
+  position:absolute; inset:0; z-index:1;
+  background:linear-gradient(135deg, rgba(22,19,16,.95) 40%, rgba(36,59,74,.7) 100%);
+}
+.cta-left, .cta-right { position:relative; z-index:2; }
+.cta-h2 {
+  font-family:'Cormorant Garamond', serif;
+  font-size:clamp(48px, 5.5vw, 80px); font-weight:300;
+  color:var(--white); line-height:1.05;
+}
+.cta-h2 em { font-style:italic; color:var(--dusk); display:block; }
+.cta-ghost {
+  position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+  font-family:'Cormorant Garamond', serif;
+  font-size:260px; font-weight:300;
+  color:rgba(255,255,255,.025); letter-spacing:.1em;
+  white-space:nowrap; pointer-events:none; z-index:1;
+}
+.cta-p { font-size:14px; font-weight:300; color:rgba(253,250,246,.5); line-height:2; margin-bottom:48px; letter-spacing:.03em; }
+.cta-contacts { display:flex; gap:40px; margin-top:44px; padding-top:44px; border-top:1px solid rgba(255,255,255,.08); }
+.cct-l { font-size:8px; letter-spacing:.25em; text-transform:uppercase; color:rgba(253,250,246,.3); margin-bottom:6px; }
+.cct-v { font-size:13px; font-weight:300; color:rgba(253,250,246,.8); }
+
+/* ── FOOTER ── */
+footer { background:var(--deep); padding:88px 64px 44px; border-top:1px solid rgba(255,255,255,.05); }
+.ft { display:grid; grid-template-columns:1.8fr 1fr 1fr 1fr; gap:60px; margin-bottom:64px; }
+.f-logo { font-family:'Cormorant Garamond', serif; font-size:28px; font-weight:300; letter-spacing:.3em; color:var(--white); text-decoration:none; display:block; margin-bottom:18px; }
+.f-tag { font-size:12px; font-weight:300; color:rgba(253,250,246,.25); line-height:1.9; max-width:220px; }
+.f-col-t { font-size:8px; letter-spacing:.3em; text-transform:uppercase; color:var(--dusk); margin-bottom:24px; }
+.f-links { display:flex; flex-direction:column; gap:14px; }
+.f-links a { font-size:13px; font-weight:300; color:rgba(253,250,246,.4); text-decoration:none; transition:color .3s; }
+.f-links a:hover { color:var(--white); }
+.fb { display:flex; justify-content:space-between; align-items:center; padding-top:36px; border-top:1px solid rgba(255,255,255,.05); }
+.f-copy { font-size:10px; color:rgba(253,250,246,.15); letter-spacing:.08em; }
+.f-soc { display:flex; gap:28px; }
+.f-soc a { font-size:9px; letter-spacing:.2em; text-transform:uppercase; color:rgba(253,250,246,.25); text-decoration:none; transition:color .3s; }
+.f-soc a:hover { color:var(--dusk); }
+
+/* ── PARALLAX + REVEAL ── */
+.reveal { opacity:0; transform:translateY(50px); transition:opacity .9s var(--ease), transform .9s var(--ease); }
+.reveal.in { opacity:1; transform:translateY(0); }
+.reveal-l { opacity:0; transform:translateX(-40px); transition:opacity .9s var(--ease), transform .9s var(--ease); }
+.reveal-l.in { opacity:1; transform:translateX(0); }
+.reveal-r { opacity:0; transform:translateX(40px); transition:opacity .9s var(--ease), transform .9s var(--ease); }
+.reveal-r.in { opacity:1; transform:translateX(0); }
+[data-delay="1"] { transition-delay:.1s; }
+[data-delay="2"] { transition-delay:.2s; }
+[data-delay="3"] { transition-delay:.3s; }
+[data-delay="4"] { transition-delay:.4s; }
+[data-delay="5"] { transition-delay:.5s; }
+
+/* ── PARALLAX IMAGES ── */
+.par { will-change:transform; }
+
+/* ── MOBILE ── */
+@media(max-width:900px){
+  nav { padding:20px 24px; }
+  .n-links { display:none; }
+  .hero-body { padding:0 24px 60px; grid-template-columns:1fr; }
+  .hero-h1 { font-size:54px; }
+  .hero-right-meta { display:none; }
+  .about { grid-template-columns:1fr; }
+  .about-vis { height:50vh; }
+  .about-body { padding:60px 24px; }
+  .suites { padding:80px 24px; }
+  .suites-grid { grid-template-columns:1fr; grid-template-rows:auto; }
+  .sc { height:360px; }
+  .sc:first-child { grid-row:auto; height:480px; }
+  .exp { padding:80px 24px; }
+  .exp-grid { grid-template-columns:1fr 1fr; }
+  .services { padding:80px 24px; }
+  .svc-grid { grid-template-columns:1fr; }
+  .svc-c { aspect-ratio:4/3; }
+  .gal-grid { grid-template-columns:1fr 1fr; grid-template-rows:repeat(5,200px); }
+  .gi { grid-column:auto !important; grid-row:auto !important; }
+  .testi { padding:80px 24px; }
+  .testi-inner { grid-template-columns:1fr; }
+  .testi-vis { display:none; }
+  .cta { padding:80px 24px; grid-template-columns:1fr; }
+  .cta-ghost { display:none; }
+  .sh { flex-direction:column; align-items:flex-start; gap:20px; }
+  .sh-sub { text-align:left; max-width:100%; }
+  footer { padding:60px 24px 32px; }
+  .ft { grid-template-columns:1fr 1fr; gap:36px; }
+}
+</style>
+</head>
+<body>
+
+<div id="cur"></div>
+<div id="cur-ring"></div>
+
+<!-- ════ NAV ════ -->
+<nav id="nav">
+  <a href="#" class="n-logo">
+    <span class="n-logo-mark">L</span>
+    LUMARA
+  </a>
+  <div class="n-links">
+    <a href="#about">Story</a>
+    <a href="#suites">Suites</a>
+    <a href="#experiences">Experiences</a>
+    <a href="#services">Amenities</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#contact" class="n-btn">Reserve</a>
+  </div>
+</nav>
+
+<!-- ════ HERO ════ -->
+<section class="hero">
+  <div class="hero-video-wrap">
+    <!-- Ocean / resort aerial footage from Pexels (free) -->
+    <video autoplay muted loop playsinline preload="auto"
+      src="https://videos.pexels.com/video-files/1739010/1739010-uhd_2560_1440_24fps.mp4"
+      poster="https://images.unsplash.com/photo-1540541338287-41700207dee6?w=1600&q=80">
+    </video>
+  </div>
+
+  <div class="hero-ticker" aria-hidden="true">
+    <div class="hero-ticker-inner">
+      <span>Lumara</span><span>&middot;</span><span>Côte d'Azur</span><span>&middot;</span>
+      <span>Lumara</span><span>&middot;</span><span>Côte d'Azur</span><span>&middot;</span>
+      <span>Lumara</span><span>&middot;</span><span>Côte d'Azur</span><span>&middot;</span>
+      <span>Lumara</span><span>&middot;</span><span>Côte d'Azur</span><span>&middot;</span>
+    </div>
+  </div>
+
+  <div class="hero-body">
+    <div>
+      <div class="hero-eyebrow">Côte d'Azur · France · Est. 1998</div>
+      <h1 class="hero-h1">Where<br>the sea<br><em>breathes</em></h1>
+      <p class="hero-sub">An intimate cliff-top sanctuary where Mediterranean light, private infinity pools and Michelin-starred cuisine conspire to create something unforgettable.</p>
+      <div class="hero-actions">
+        <a href="#suites" class="btn-fill">Explore Suites</a>
+        <a href="#about" class="btn-ghost">Our Story</a>
+      </div>
+    </div>
+    <div class="hero-right-meta">
+      <div class="hero-rating">
+        <div class="hero-rating-num">4.98</div>
+        <div class="hero-rating-label">Guest Score</div>
+      </div>
+      <div class="hero-scroll-line"></div>
+      <div class="hero-coords">43°42′N · 7°16′E</div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ MARQUEE ════ -->
+<div class="marquee">
+  <div class="m-track">
+    <div class="m-img" style="background-image:url('https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=600&q=80')"></div>
+    <div class="m-img" style="background-image:url('https://images.unsplash.com/photo-1540541338287-41700207dee6?w=600&q=80')"></div>
+    <div class="m-img" style="background-image:url('https://images.unsplash.com/photo-1455587734955-081b22074882?w=600&q=80')"></div>
+    <div class="m-img" style="background-image:url('https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&q=80')"></div>
+    <div class="m-img" style="background-image:url('https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=600&q=80')"></div>
+    <div class="m-img" style="background-image:url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&q=80')"></div>
+    <div class="m-img" style="background-image:url('https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=600&q=80')"></div>
+    <div class="m-img" style="background-image:url('https://images.unsplash.com/photo-1540541338287-41700207dee6?w=600&q=80')"></div>
+    <div class="m-img" style="background-image:url('https://images.unsplash.com/photo-1455587734955-081b22074882?w=600&q=80')"></div>
+    <div class="m-img" style="background-image:url('https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&q=80')"></div>
+    <div class="m-img" style="background-image:url('https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=600&q=80')"></div>
+    <div class="m-img" style="background-image:url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&q=80')"></div>
+  </div>
+</div>
+
+<!-- ════ ABOUT ════ -->
+<section class="about" id="about">
+  <div class="about-vis">
+    <div class="about-vis-img par" data-speed=".3"></div>
+    <div class="about-floater reveal-l">
+      <div class="about-floater-num">26</div>
+      <div class="about-floater-text">Years of Legacy</div>
+    </div>
+  </div>
+  <div class="about-body">
+    <div class="label reveal">Our Philosophy</div>
+    <h2 class="about-h2 reveal" data-delay="1">A coastal <em>sanctuary</em><br>above the sea</h2>
+    <p class="about-p reveal" data-delay="2">
+      Perched on limestone cliffs above the Côte d'Azur, Lumara was conceived as a private world where time softens and beauty becomes immersive. Each corner of our estate reflects a deep reverence for the Mediterranean way of life — unhurried, sensory, and deeply nourishing.
+    </p>
+    <a href="#suites" class="btn-ghost reveal" data-delay="3" style="width:fit-content;color:var(--deep);border-color:var(--gold)">Discover Our Suites</a>
+    <div class="stats reveal" data-delay="4">
+      <div><div class="stat-n">12</div><div class="stat-l">Private Suites</div></div>
+      <div><div class="stat-n">3</div><div class="stat-l">Restaurants</div></div>
+      <div><div class="stat-n">98%</div><div class="stat-l">Return Rate</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ SUITES ════ -->
+<section class="suites" id="suites">
+  <div class="sh">
+    <div>
+      <div class="label reveal">Accommodations</div>
+      <h2 class="h2 reveal" data-delay="1">Suites <em>designed</em><br>for ocean lovers</h2>
+    </div>
+    <p class="sh-sub reveal">Each suite is a private universe — designed to dissolve the boundary between indoors and the vast Mediterranean horizon.</p>
+  </div>
+  <div class="suites-grid">
+    <div class="sc reveal">
+      <div class="sc-img" style="background-image:url('https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=1000&q=85')"></div>
+      <div class="sc-overlay"></div>
+      <div class="sc-info">
+        <div class="sc-n">01 — Signature</div>
+        <div class="sc-name">Horizon Suite</div>
+        <div class="sc-desc">Floor-to-ceiling glass meets an infinity pool that seems to pour into the Ligurian Sea. The ultimate immersion.</div>
+        <a href="#" class="sc-link">Explore</a>
+      </div>
+    </div>
+    <div class="sc reveal" data-delay="1">
+      <div class="sc-img" style="background-image:url('https://images.unsplash.com/photo-1540541338287-41700207dee6?w=800&q=85')"></div>
+      <div class="sc-overlay"></div>
+      <div class="sc-info">
+        <div class="sc-n">02</div>
+        <div class="sc-name">Cliffside Retreat</div>
+        <div class="sc-desc">Private terrace carved into limestone with a plunge pool and panoramic sunset views.</div>
+        <a href="#" class="sc-link">Explore</a>
+      </div>
+    </div>
+    <div class="sc reveal" data-delay="2">
+      <div class="sc-img" style="background-image:url('https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&q=85')"></div>
+      <div class="sc-overlay"></div>
+      <div class="sc-info">
+        <div class="sc-n">03</div>
+        <div class="sc-name">Garden Pavilion</div>
+        <div class="sc-desc">Nestled among olive trees, opening to a private garden and shimmering plunge pool.</div>
+        <a href="#" class="sc-link">Explore</a>
+      </div>
+    </div>
+    <div class="sc reveal" data-delay="1">
+      <div class="sc-img" style="background-image:url('https://images.unsplash.com/photo-1455587734955-081b22074882?w=800&q=85')"></div>
+      <div class="sc-overlay"></div>
+      <div class="sc-info">
+        <div class="sc-n">04</div>
+        <div class="sc-name">Azure Villa</div>
+        <div class="sc-desc">Our most expansive residence — three terraces, full kitchen, direct beach access.</div>
+        <a href="#" class="sc-link">Explore</a>
+      </div>
+    </div>
+    <div class="sc reveal" data-delay="2">
+      <div class="sc-img" style="background-image:url('https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=800&q=85')"></div>
+      <div class="sc-overlay"></div>
+      <div class="sc-info">
+        <div class="sc-n">05</div>
+        <div class="sc-name">The Celeste</div>
+        <div class="sc-desc">A rooftop sanctuary with a celestial design and an open-air stargazing platform.</div>
+        <a href="#" class="sc-link">Explore</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ VIDEO QUOTE ════ -->
+<div class="video-break">
+  <video autoplay muted loop playsinline preload="auto"
+    src="https://videos.pexels.com/video-files/2169880/2169880-uhd_2560_1440_30fps.mp4"
+    poster="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=1600&q=80">
+  </video>
+  <div class="vb-content reveal">
+    <blockquote>"To stay at Lumara is to remember what it feels like to truly arrive."</blockquote>
+    <div class="vb-attr">— Condé Nast Traveller, Best Hotel in France 2024</div>
+    <div class="vb-line"></div>
+  </div>
+</div>
+
+<!-- ════ EXPERIENCES ════ -->
+<section class="exp" id="experiences">
+  <div class="sh">
+    <div>
+      <div class="label">Beyond the Room</div>
+      <h2 class="h2" style="color:var(--white)">Curated <em>experiences</em></h2>
+    </div>
+    <p class="sh-sub" style="color:rgba(253,250,246,.35)">Every detail of your stay — from sunrise to candlelit dinner — is thoughtfully shaped for wonder.</p>
+  </div>
+  <div class="exp-grid">
+    <div class="ei reveal"><div class="ei-num">01</div><div class="ei-ico">⛵</div><div class="ei-name">Private Sailing</div><div class="ei-text">Chart the azure waters aboard our 38-foot sloop, guided by a local captain who knows every hidden cove.</div></div>
+    <div class="ei reveal" data-delay="1"><div class="ei-num">02</div><div class="ei-ico">🧘</div><div class="ei-name">Clifftop Yoga</div><div class="ei-text">Begin mornings with breathwork at the cliff's edge as the Mediterranean awakens below you.</div></div>
+    <div class="ei reveal" data-delay="2"><div class="ei-num">03</div><div class="ei-ico">🍷</div><div class="ei-name">Wine Cave Dinners</div><div class="ei-text">Private tastings in our centuries-old cave cellar, pairing Provençal vintages to your exact palate.</div></div>
+    <div class="ei reveal" data-delay="3"><div class="ei-num">04</div><div class="ei-ico">🤿</div><div class="ei-name">Reef Exploration</div><div class="ei-text">Dive into crystal waters with a marine biologist, discovering sea life of the protected Riviera coast.</div></div>
+    <div class="ei reveal"><div class="ei-num">05</div><div class="ei-ico">🍽️</div><div class="ei-name">Chef's Table</div><div class="ei-text">A personalised tasting menu by our Michelin-recognised chef, at a private terrace table for two.</div></div>
+    <div class="ei reveal" data-delay="1"><div class="ei-num">06</div><div class="ei-ico">✦</div><div class="ei-name">Lumara Spa</div><div class="ei-text">Provençal botanical rituals — lavender stone massages, sea algae restoration, thalassotherapy.</div></div>
+    <div class="ei reveal" data-delay="2"><div class="ei-num">07</div><div class="ei-ico">🎨</div><div class="ei-name">Art Ateliers</div><div class="ei-text">Watercolour workshops with local artists in the lavender fields or ceramic sessions in our estate studio.</div></div>
+    <div class="ei reveal" data-delay="3"><div class="ei-num">08</div><div class="ei-ico">🌅</div><div class="ei-name">Sunset Cruises</div><div class="ei-text">Drift along the golden coastline as the sun melts into the sea — champagne in hand, no agenda required.</div></div>
+  </div>
+</section>
+
+<!-- ════ SERVICES ════ -->
+<section class="services" id="services">
+  <div class="sh">
+    <div>
+      <div class="label reveal">The Lumara Life</div>
+      <h2 class="h2 reveal" data-delay="1">Comfort <em>beyond</em><br>the suite</h2>
+    </div>
+    <p class="sh-sub reveal">Curated spaces and rituals that transform a stay into a way of living — even if only for a few days.</p>
+  </div>
+  <div class="svc-grid">
+    <div class="svc-c reveal">
+      <div class="svc-img" style="background-image:url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=900&q=85')"></div>
+      <div class="svc-overlay"></div>
+      <div class="svc-body">
+        <div class="svc-ico">🍽️</div>
+        <div class="svc-name">Terrasse Restaurant</div>
+        <div class="svc-text">Our award-winning kitchen transforms the morning catch into artful Mediterranean cuisine, with sweeping sea views and a wine list curated over forty years.</div>
+      </div>
+    </div>
+    <div class="svc-c reveal" data-delay="1">
+      <div class="svc-img" style="background-image:url('https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=900&q=85')"></div>
+      <div class="svc-overlay"></div>
+      <div class="svc-body">
+        <div class="svc-ico">✦</div>
+        <div class="svc-name">Maison Spa</div>
+        <div class="svc-text">Eleven treatment rooms open to the sea breeze. Ancient thalassotherapy, bespoke facials, and deep-tissue rituals drawing from southern French healing traditions.</div>
+      </div>
+    </div>
+    <div class="svc-c reveal" data-delay="2">
+      <div class="svc-img" style="background-image:url('https://images.unsplash.com/photo-1571731956672-f2b94d7dd0cb?w=900&q=85')"></div>
+      <div class="svc-overlay"></div>
+      <div class="svc-body">
+        <div class="svc-ico">🏊</div>
+        <div class="svc-name">Infinity Pool</div>
+        <div class="svc-text">Our 40-metre pool dissolves into the Mediterranean horizon. Morning laps at dawn, afternoon repose with chilled towels — the rhythm of the Lumara day.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ GALLERY ════ -->
+<section id="gallery">
+  <div style="padding:80px 64px 48px;background:var(--ivory);">
+    <div class="label reveal" style="justify-content:center">Visual Journey</div>
+    <h2 class="h2 reveal" style="text-align:center" data-delay="1">Lumara in <em>pictures</em></h2>
+  </div>
+  <div class="gal">
+    <div class="gal-grid">
+      <div class="gi"><div class="gi-img par" data-speed=".15" style="background-image:url('https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=800&q=85')"></div><div class="gi-label">Horizon Suite</div></div>
+      <div class="gi"><div class="gi-img par" data-speed=".2" style="background-image:url('https://images.unsplash.com/photo-1540541338287-41700207dee6?w=800&q=85')"></div><div class="gi-label">Pool Terrace</div></div>
+      <div class="gi"><div class="gi-img par" data-speed=".1" style="background-image:url('https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?w=800&q=85')"></div><div class="gi-label">Cliffside Views</div></div>
+      <div class="gi"><div class="gi-img par" data-speed=".25" style="background-image:url('https://images.unsplash.com/photo-1455587734955-081b22074882?w=800&q=85')"></div><div class="gi-label">Azure Suite</div></div>
+      <div class="gi"><div class="gi-img par" data-speed=".18" style="background-image:url('https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&q=85')"></div><div class="gi-label">Garden Pavilion</div></div>
+      <div class="gi"><div class="gi-img par" data-speed=".12" style="background-image:url('https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=800&q=85')"></div><div class="gi-label">Celeste</div></div>
+      <div class="gi"><div class="gi-img par" data-speed=".22" style="background-image:url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&q=85')"></div><div class="gi-label">Terrasse</div></div>
+      <div class="gi"><div class="gi-img par" data-speed=".16" style="background-image:url('https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=800&q=85')"></div><div class="gi-label">Infinity Pool</div></div>
+      <div class="gi"><div class="gi-img par" data-speed=".2" style="background-image:url('https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=800&q=85')"></div><div class="gi-label">Maison Spa</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ TESTIMONIALS ════ -->
+<section class="testi">
+  <div class="testi-inner">
+    <div class="testi-vis reveal-l">
+      <div class="tiv-main"></div>
+      <div class="tiv-float"></div>
+      <div class="tiv-badge">
+        <div class="tiv-badge-n">4.98</div>
+        <div class="tiv-badge-t">Guest Rating</div>
+      </div>
+    </div>
+    <div class="testi-body reveal-r">
+      <div class="label">Guest Stories</div>
+      <div class="testi-stars">★★★★★</div>
+      <blockquote class="testi-q">"Lumara isn't just a hotel — it's the feeling of belonging somewhere impossibly beautiful."</blockquote>
+      <div class="testi-who">Margaux &amp; Pierre Delacroix</div>
+      <div class="testi-where">Horizon Suite · August 2024</div>
+      <div class="testi-dots">
+        <div class="td on"></div>
+        <div class="td"></div>
+        <div class="td"></div>
+        <div class="td"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ CTA ════ -->
+<section class="cta" id="contact">
+  <div class="cta-video">
+    <video autoplay muted loop playsinline preload="auto"
+      src="https://videos.pexels.com/video-files/2098409/2098409-uhd_2560_1440_25fps.mp4"
+      poster="https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=1600&q=80">
+    </video>
+  </div>
+  <div class="cta-overlay"></div>
+  <div class="cta-ghost" aria-hidden="true">LUMARA</div>
+  <div class="cta-left reveal-l">
+    <div class="label" style="color:rgba(253,250,246,.3)">Reserve Your Stay</div>
+    <h2 class="cta-h2">Begin<br>your<br><em>story here</em></h2>
+  </div>
+  <div class="cta-right reveal-r" data-delay="2">
+    <p class="cta-p">Our reservations team crafts a personalised itinerary for each stay. Every visit is different — and entirely, exquisitely yours.</p>
+    <a href="tel:+33123456789" class="btn-fill" style="background:var(--gold)">Request a Reservation</a>
+    <div class="cta-contacts">
+      <div><div class="cct-l">Phone</div><div class="cct-v">+33 1 23 45 67 89</div></div>
+      <div><div class="cct-l">Email</div><div class="cct-v">stay@lumara.com</div></div>
+      <div><div class="cct-l">Location</div><div class="cct-v">Côte d'Azur, France</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ FOOTER ════ -->
+<footer>
+  <div class="ft">
+    <div>
+      <a href="#" class="f-logo">LUMARA</a>
+      <p class="f-tag">A private coastal estate on the Côte d'Azur, where Mediterranean luxury meets intimate serenity.</p>
+    </div>
+    <div>
+      <div class="f-col-t">Explore</div>
+      <div class="f-links">
+        <a href="#">Our Story</a>
+        <a href="#">Suites & Villas</a>
+        <a href="#">Experiences</a>
+        <a href="#">The Spa</a>
+        <a href="#">Dining</a>
+      </div>
+    </div>
+    <div>
+      <div class="f-col-t">Visit</div>
+      <div class="f-links">
+        <a href="#">Gallery</a>
+        <a href="#">Press Room</a>
+        <a href="#">Weddings</a>
+        <a href="#">Gift Experiences</a>
+        <a href="#">FAQ</a>
+      </div>
+    </div>
+    <div>
+      <div class="f-col-t">Connect</div>
+      <div class="f-links">
+        <a href="#">Instagram</a>
+        <a href="#">Pinterest</a>
+        <a href="#">Newsletter</a>
+        <a href="#">Trade Partners</a>
+      </div>
+    </div>
+  </div>
+  <div class="fb">
+    <div class="f-copy">© 2025 Lumara Resort · Côte d'Azur · All Rights Reserved</div>
+    <div class="f-soc">
+      <a href="#">Privacy</a>
+      <a href="#">Legal</a>
+      <a href="#">Accessibility</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ── CURSOR ──
+const cur = document.getElementById('cur');
+const curR = document.getElementById('cur-ring');
+let mx=0, my=0, rx=0, ry=0;
+document.addEventListener('mousemove', e=>{
+  mx = e.clientX; my = e.clientY;
+  cur.style.transform = `translate(${mx}px,${my}px)`;
+});
+(function animR(){
+  rx += (mx-rx)*.1;
+  ry += (my-ry)*.1;
+  curR.style.transform = `translate(${rx}px,${ry}px)`;
+  requestAnimationFrame(animR);
+})();
+
+// ── NAV SCROLL ──
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', ()=>{ nav.classList.toggle('s', window.scrollY > 60); }, {passive:true});
+
+// ── INTERSECTION REVEAL ──
+const io = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('in'); });
+},{threshold:.14});
+document.querySelectorAll('.reveal, .reveal-l, .reveal-r').forEach(el=>io.observe(el));
+
+// ── SMOOTH PARALLAX ──
+function updateParallax(){
+  document.querySelectorAll('.par').forEach(el=>{
+    const rect = el.closest('section, div')?.getBoundingClientRect();
+    if(!rect) return;
+    const speed = parseFloat(el.dataset.speed||'.2');
+    const offset = (window.innerHeight/2 - rect.top - rect.height/2) * speed;
+    el.style.transform = `translateY(${offset}px) scale(1.12)`;
+  });
+}
+window.addEventListener('scroll', updateParallax, {passive:true});
+updateParallax();
+
+// ── SMOOTH SCROLL (native enhanced) ──
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click', e=>{
+    const tgt = document.querySelector(a.getAttribute('href'));
+    if(!tgt) return;
+    e.preventDefault();
+    tgt.scrollIntoView({behavior:'smooth', block:'start'});
+  });
+});
+
+// ── TESTI DOTS ──
+document.querySelectorAll('.td').forEach((d,i)=>{
+  d.addEventListener('click',()=>{
+    document.querySelectorAll('.td').forEach(x=>x.classList.remove('on'));
+    d.classList.add('on');
+  });
+});
+
+// ── LENIS-LIKE SMOOTH MOMENTUM SCROLL ──
+let scrollTarget = window.scrollY;
+let scrollCurrent = window.scrollY;
+let ticking = false;
+
+// Only apply on desktop
+if(window.innerWidth > 900) {
+  const ease = 0.09;
+  document.body.style.overflow = 'hidden';
+  const scrollWrapper = document.createElement('div');
+  scrollWrapper.style.cssText = 'position:fixed;top:0;left:0;width:100%;will-change:transform;';
+  document.body.childNodes.forEach(n=>scrollWrapper.appendChild(n.cloneNode(true)));
+  // Simpler approach: just add smooth to scroll events
+  document.body.style.overflow = '';
+}
+
+// Enhanced scroll feel via event
+let lastScroll = 0;
+window.addEventListener('wheel', e=>{
+  // Natural scroll — browser handles it, we just track for effects
+}, {passive:true});
+
+// ── HOVER PARALLAX ON HERO ──
+document.querySelector('.hero')?.addEventListener('mousemove', e=>{
+  const {clientX:x, clientY:y} = e;
+  const {innerWidth:w, innerHeight:h} = window;
+  const dx = (x/w-.5)*12;
+  const dy = (y/h-.5)*8;
+  const vid = document.querySelector('.hero-video-wrap video');
+  if(vid) vid.style.transform = `scale(1.08) translate(${dx}px,${dy}px)`;
+});
+document.querySelector('.hero')?.addEventListener('mouseleave', ()=>{
+  const vid = document.querySelector('.hero-video-wrap video');
+  if(vid) vid.style.transform = 'scale(1.05)';
+});
+
+// ── COUNTER ANIMATION ──
+const countIO = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(!e.isIntersecting) return;
+    const el = e.target;
+    const raw = el.textContent.trim();
+    const num = parseFloat(raw);
+    if(isNaN(num)){ countIO.unobserve(el); return; }
+    const suffix = raw.replace(/[\d.]/g,'');
+    const dur = 1400;
+    const start = performance.now();
+    const from = num*.2;
+    function tick(now){
+      const p = Math.min((now-start)/dur,1);
+      const eased = 1-Math.pow(1-p,4);
+      el.textContent = (from + (num-from)*eased).toFixed(num%1?2:0) + suffix;
+      if(p<1) requestAnimationFrame(tick);
+      else el.textContent = raw;
+    }
+    requestAnimationFrame(tick);
+    countIO.unobserve(el);
+  });
+},{threshold:.8});
+document.querySelectorAll('.stat-n, .tiv-badge-n, .hero-rating-num, .about-floater-num').forEach(el=>countIO.observe(el));
+</script>
+</body>
+</html>
